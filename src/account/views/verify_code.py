@@ -35,7 +35,7 @@ from account.serializers import VerifyCodeSerializer
             schema=openapi.Schema(
                 type=openapi.TYPE_OBJECT,
                 properties={
-                    "error": openapi.Schema(
+                    "detail": openapi.Schema(
                         type=openapi.TYPE_STRING,
                         example="Verification code is invalid or expired",
                     ),
@@ -47,7 +47,7 @@ from account.serializers import VerifyCodeSerializer
             schema=openapi.Schema(
                 type=openapi.TYPE_OBJECT,
                 properties={
-                    "error": openapi.Schema(
+                    "detail": openapi.Schema(
                         type=openapi.TYPE_STRING,
                         example="User not found",
                     ),
@@ -84,12 +84,12 @@ def verify_code(request: Request) -> Response:
         InvalidOrExpiredTokenException,
     ) as e:
         return Response(
-            {"error": e.message},
+            {"detail": e.message},
             status=status.HTTP_400_BAD_REQUEST,
         )
 
     except UserNotFoundException as e:
         return Response(
-            {"error": e.message},
+            {"detail": e.message},
             status=status.HTTP_404_NOT_FOUND,
         )
