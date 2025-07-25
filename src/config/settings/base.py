@@ -13,6 +13,7 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", [])
 # Application definition
 
 INSTALLED_APPS = [
+    "account.apps.AccountConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -70,6 +71,8 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+AUTH_USER_MODEL = "account.User"
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
