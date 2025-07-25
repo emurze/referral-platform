@@ -6,6 +6,13 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/", include("account.urls", namespace="account")),
+    path(
+        "profile/",
+        include(
+            "user_profile.urls",
+            namespace="user_profile",
+        ),
+    ),
 ]
 
 if settings.DEBUG:
