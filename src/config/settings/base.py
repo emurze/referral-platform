@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "rest_framework",
     "rest_framework.authtoken",
+    "drf_yasg",
     "user_profile.apps.UserProfileConfig",
 ]
 
@@ -105,3 +106,19 @@ REST_FRAMEWORK = {
 }
 
 VERIFICATION_CODE_EXPIRATION_MINUTES = 30
+
+SWAGGER_USE_COMPAT_RENDERERS = False
+
+SWAGGER_SETTINGS = {
+    "LOGIN_URL": "/auth/verify-code/",
+    "SECURITY_DEFINITIONS": {
+        "Token": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "Enter token as: Token <your_token>",
+        }
+    },
+    "USE_SESSION_AUTH": False,
+    # Optional: disable login form, rely on tokens only
+}
