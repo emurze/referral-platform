@@ -16,21 +16,22 @@ def set_referrer(current_user: User, referral_code: str) -> None:
     The operation is executed inside a database transaction for atomicity.
     """
     with transaction.atomic():
-        if current_user.referrer_id is not None:
+        user = User.objects.select_for_update().get(pk=current_user.pk)
+
+        if user.referrer_id is not None:
             raise ReferralCodeValidationError("You already have a referrer.")
 
-        if current_user.referral_code == referral_code:
+        if user.referral_code == referral_code:
             raise ReferralCodeValidationError(
                 "You cannot use your own referral code."
             )
 
         try:
-            current_user.referrer = User.objects.get(
-                referral_code=referral_code,
-            )
+            referrer = User.objects.get(referral_code=referral_code)
         except User.DoesNotExist:
             raise ReferralCodeValidationError(
                 "This referral code does not exist."
             )
 
-        current_user.save()
+        user.referrer = referrer
+        user.save()

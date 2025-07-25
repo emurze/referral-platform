@@ -15,8 +15,9 @@ def login(phone_number: str) -> str:
     3. Sends the verification code associated with the user.
     4. Returns the verification code to the user.
     """
+    code = generate_verification_code()
+
     with transaction.atomic():
-        code = generate_verification_code()
         user = User.objects.get_or_create_user(phone_number=phone_number)
         VerificationCode.objects.create(user=user, code=code)
 

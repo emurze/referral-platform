@@ -32,10 +32,11 @@ def verify_code(phone_number: str, code: str) -> str:
         except User.DoesNotExist:
             raise UserNotFoundException()
 
-        verification_code = user.verification_codes.filter(
-            code=code,
-            is_blocked=False,
-        ).last()
+        verification_code = (
+            user.verification_codes.select_for_update()
+            .filter(code=code, is_blocked=False)
+            .first()
+        )
 
         if not verification_code:
             raise VerificationCodeNotFoundException()
