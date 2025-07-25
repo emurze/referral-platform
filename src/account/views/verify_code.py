@@ -1,3 +1,5 @@
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -12,6 +14,52 @@ from account.exceptions import (
 from account.serializers import VerifyCodeSerializer
 
 
+@swagger_auto_schema(
+    method="POST",
+    request_body=VerifyCodeSerializer,
+    responses={
+        200: openapi.Response(
+            description="Verification successful",
+            schema=openapi.Schema(
+                type=openapi.TYPE_OBJECT,
+                properties={
+                    "token": openapi.Schema(
+                        type=openapi.TYPE_STRING,
+                        example="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                    ),
+                },
+            ),
+        ),
+        400: openapi.Response(
+            description="Invalid or expired verification code",
+            schema=openapi.Schema(
+                type=openapi.TYPE_OBJECT,
+                properties={
+                    "error": openapi.Schema(
+                        type=openapi.TYPE_STRING,
+                        example="Verification code is invalid or expired",
+                    ),
+                },
+            ),
+        ),
+        404: openapi.Response(
+            description="User not found",
+            schema=openapi.Schema(
+                type=openapi.TYPE_OBJECT,
+                properties={
+                    "error": openapi.Schema(
+                        type=openapi.TYPE_STRING,
+                        example="User not found",
+                    ),
+                },
+            ),
+        ),
+    },
+    operation_summary="Verify Code",
+    operation_description="Verifies the received code and returns "
+    "a JWT token if valid.",
+    tags=["Authentication"],
+)
 @api_view(["POST"])
 def verify_code(request: Request) -> Response:
     """
