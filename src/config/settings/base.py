@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "rest_framework",
     "rest_framework.authtoken",
+    "user_profile.apps.UserProfileConfig",
 ]
 
 MIDDLEWARE = [
