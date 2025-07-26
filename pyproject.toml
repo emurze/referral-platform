@@ -18,6 +18,10 @@ dependencies = [
     "drf-yasg (>=1.21.10,<2.0.0)",
 ]
 
+[tool.poetry]
+package-mode = false
+
+
 [tool.poetry.group.dev.dependencies]
 poethepoet = "^0.36.0"
 black = "^25.1.0"
@@ -28,7 +32,7 @@ pytest-django = "^4.11.1"
 
 [tool.poe.env]
 PYTHONPATH = "src"
-APP_NAME = "cafe-order-system"
+APP_NAME = "referral-platform"
 DC = "docker compose -p ${APP_NAME} -f docker-compose.dev.yml"
 DC_PROD = "docker compose -p ${APP_NAME} -f docker-compose.prod.yml"
 
@@ -36,7 +40,7 @@ DC_PROD = "docker compose -p ${APP_NAME} -f docker-compose.prod.yml"
 up = "$DC up"
 down = "$DC down"
 test = "pytest"
-start = "gunicorn config.wsgi:application --bind 0.0.0.0:8084"
+start = "gunicorn config.wsgi:application --bind 0.0.0.0:8080"
 collectstatic = { shell = "cd src && python3 manage.py collectstatic --noinput" }
 runserver = { shell = "cd src && python manage.py runserver" }
 migrate = { shell = "cd src && python manage.py migrate" }

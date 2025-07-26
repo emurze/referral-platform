@@ -104,7 +104,7 @@ def test_cannot_verify_when_verification_code_not_found(
 
     # assert
     assert response.status_code == status.HTTP_400_BAD_REQUEST
-    assert response.json()["error"] == "Verification code not found"
+    assert response.json()["detail"] == "Verification code not found"
 
 
 @pytest.mark.django_db
@@ -133,7 +133,7 @@ def test_cannot_verify_verification_code_expired(
 
     # assert
     assert response.status_code == status.HTTP_400_BAD_REQUEST
-    assert response.json()["error"] == "Invalid or expired code"
+    assert response.json()["detail"] == "Invalid or expired code"
 
 
 @pytest.mark.django_db
@@ -154,4 +154,4 @@ def test_cannot_verify_when_user_not_found(
 
     # assert
     assert response.status_code == status.HTTP_404_NOT_FOUND
-    assert response.json()["error"] == "User not found"
+    assert response.json()["detail"] == "User not found"

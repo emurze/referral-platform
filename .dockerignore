@@ -64,6 +64,8 @@ coverage.xml
 
 # Sphinx documentation
 src/entrypoints/spicking/_build/
+src/static
+static
 
 # PyBuilder
 target/
