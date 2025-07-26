@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:16
+    networks:
+      - backend
+    env_file: .env.prod
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  referral-platform:
+    build: .
+    image: referral-platform:v1
+    volumes:
+      - app_static:/service/src/static
+    networks:
+      - backend
+    env_file: .env.prod
+    restart: unless-stopped
+    depends_on:
+      - db
+
+  web_server:
+    image: 'nginx:alpine3.18'
+    container_name: 'web_server'
+    networks:
+      - backend
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/nginx.conf
+      - app_static:/srv/static
+    ports:
+      - '80:80'
+    restart: unless-stopped
+    depends_on:
+      - referral-platform
+
+volumes:
+  postgres_data:
+  app_static:
+
+networks:
+  backend:
