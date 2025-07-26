@@ -59,7 +59,7 @@ Sample content of `.env.prod`:
 PYTHONPATH = src
 DJANGO_ENV = production
 SECRET_KEY = secret_key  # Insert your own secret key here
-ALLOWED_HOSTS = 0.0.0.0
+ALLOWED_HOSTS = 0.0.0.0,127.0.0.1
 
 # Database settings
 DB_NAME = db
@@ -82,7 +82,7 @@ poetry run poe up_prod
 ```
 
 This will execute `docker compose up` and start all required containers.  
-Once running, the application will be available at: [http://0.0.0.0:80](http://0.0.0.0:80)
+Once running, the application will be available at: [http://0.0.0.0:80/swagger](http://0.0.0.0:80/swagger)
 
 #### 5. In case of issues
 

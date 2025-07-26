@@ -2,6 +2,8 @@
 
 This document describes the API endpoints available for authentication and user profile management.
 
+Once running, the application will be available at: [http://0.0.0.0:80/swagger](http://0.0.0.0:80/swagger)
+
 ---
 
 ## Authentication

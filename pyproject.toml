@@ -32,7 +32,7 @@ pytest-django = "^4.11.1"
 
 [tool.poe.env]
 PYTHONPATH = "src"
-APP_NAME = "cafe-order-system"
+APP_NAME = "referral-platform"
 DC = "docker compose -p ${APP_NAME} -f docker-compose.dev.yml"
 DC_PROD = "docker compose -p ${APP_NAME} -f docker-compose.prod.yml"
 
